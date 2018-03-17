@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Record Form</title>
+</head>
+<body>
+<form method="post">
+	<p>
+        <label for="firstName">Player Number:</label>
+        <input type="integer" name="playernumber" id="playerNumber">
+    </p>
+    <p>
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstname" id="firstName">
+    </p>
+    <p>
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastname" id="lastName">
+    </p>
+    <p>
+        <label for="emailAddress">Gender:</label>
+        <input type="text" name="gender" id="gender">
+    </p>
+    <input type="submit" value="Submit" onclick="addtoDB()">
+</form>
+<p id="submitted"></p>
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+   var player_number = document.getElementById('playerNumber').value;
+   var first_name = document.getElementById('firstName').value;
+   var last_name = document.getElementById('lastName').value;
+   var gender = document.getElementById('gender').value;
+   var queryString = "?playernumber=" + player_number + "&firstname=" + first_name + "&lastname=" + last_name + "&gender=" + gender;
+   console.log(queryString);
+   xhttp.open("GET", "insertsports.php" + queryString, true);
+   xhttp.send(null); 
+   //http://localhost:8888/insertsports.php?playernumber=42&firstname=Dillon&lastname=Cummings&gender=Male
+}
+</script>
+</body>
+</html>
